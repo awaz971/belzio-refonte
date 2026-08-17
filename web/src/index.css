@@ -1,0 +1,281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Belzio — "Stadium Night" design system.
+   Deep charcoal canvas, electric lime turf accent, flare orange, chalk white.
+   All colors MUST be HSL. */
+
+@layer base {
+  :root {
+    --background: 150 12% 4%;
+    --foreground: 84 24% 94%;
+
+    --card: 150 10% 7%;
+    --card-foreground: 84 24% 94%;
+
+    --popover: 150 10% 7%;
+    --popover-foreground: 84 24% 94%;
+
+    --primary: 76 100% 59%;
+    --primary-foreground: 150 30% 6%;
+
+    --secondary: 150 8% 12%;
+    --secondary-foreground: 84 24% 94%;
+
+    --muted: 150 8% 12%;
+    --muted-foreground: 120 6% 62%;
+
+    --accent: 12 100% 55%;
+    --accent-foreground: 84 24% 96%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 84 24% 96%;
+
+    --border: 150 8% 15%;
+    --input: 150 8% 15%;
+    --ring: 76 100% 59%;
+
+    --radius: 1rem;
+
+    /* Brand tokens */
+    --lime: 76 100% 59%;
+    --flame: 12 100% 55%;
+    --ice: 190 100% 61%;
+    --amber: 42 100% 62%;
+    --chalk: 84 24% 94%;
+    --ink: 150 12% 4%;
+
+    --sidebar-background: 150 10% 7%;
+    --sidebar-foreground: 84 24% 94%;
+    --sidebar-primary: 76 100% 59%;
+    --sidebar-primary-foreground: 150 30% 6%;
+    --sidebar-accent: 150 8% 12%;
+    --sidebar-accent-foreground: 84 24% 94%;
+    --sidebar-border: 150 8% 15%;
+    --sidebar-ring: 76 100% 59%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: hsl(var(--lime));
+    color: hsl(var(--ink));
+  }
+
+  /* Slim, on-brand scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(150 12% 4%);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(150 8% 18%);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--lime) / 0.6);
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+    font-stretch: 125%;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 0.86;
+    text-transform: uppercase;
+  }
+
+  .font-mono-tag {
+    font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+    font-stretch: 90%;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .text-stroke {
+    -webkit-text-stroke: 1.5px hsl(var(--chalk) / 0.55);
+    color: transparent;
+  }
+
+  .text-stroke-lime {
+    -webkit-text-stroke: 1.5px hsl(var(--lime));
+    color: transparent;
+  }
+
+  /* Faint pitch-line grid used behind dark sections */
+  .pitch-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--chalk) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--chalk) / 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  .noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .glow-lime {
+    box-shadow:
+      0 0 0 1px hsl(var(--lime) / 0.35),
+      0 12px 40px -8px hsl(var(--lime) / 0.45);
+  }
+
+  .card-surface {
+    background: linear-gradient(160deg, hsl(150 10% 9% / 0.9), hsl(150 12% 5% / 0.9));
+    border: 1px solid hsl(var(--chalk) / 0.08);
+    backdrop-filter: blur(12px);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer utilities {
+  .marquee-track {
+    animation: marquee 34s linear infinite;
+  }
+
+  .marquee-track-reverse {
+    animation: marquee-reverse 40s linear infinite;
+  }
+
+  .animate-float-slow {
+    animation: float-slow 7s ease-in-out infinite;
+  }
+
+  .animate-float-slower {
+    animation: float-slow 9s ease-in-out infinite;
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-sweep {
+    animation: sweep 9s ease-in-out infinite;
+  }
+
+  .animate-ticker {
+    animation: ticker 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(-0.6deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes sweep {
+  0%,
+  100% {
+    transform: translateX(-18%) rotate(8deg);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateX(18%) rotate(-6deg);
+    opacity: 0.65;
+  }
+}
+
+@keyframes ticker {
+  from {
+    transform: translateY(60%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
